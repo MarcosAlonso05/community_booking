@@ -55,7 +55,7 @@ async def process_reservation(
 
     service = store.get_service_by_id(service_id)
     
-    success = service.add_reservation(date, time, user)
+    success = await service.add_reservation(date, time, user)
 
     if success:
         return RedirectResponse(
@@ -83,7 +83,7 @@ async def cancel_reservation(
     service = store.get_service_by_id(service_id)
     
     if service:
-        service.cancel_reservation(date, time, user)
+        await service.cancel_reservation(date, time, user)
         
     return RedirectResponse(
         url="/dashboard?success=Reservation cancelled successfully.", 
