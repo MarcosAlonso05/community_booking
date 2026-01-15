@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Service</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f4f4f9; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 400px; }
+        .error { background-color: #ffe6e6; color: red; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 1rem; }
+        button:hover { background-color: #0056b3; }
+        a { display: block; text-align: center; margin-top: 15px; color: #666; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Book {{ service.name }}</h2>
+        <p>Max Capacity per slot: {{ service.max_capacity }} people</p>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form action="/reserve" method="post">
+            <input type="hidden" name="service_id" value="{{ service.id }}">
+
+            <label>Select Date:</label>
+            <input type="date" name="date" required>
+
+            <label>Select Time:</label>
+            <input type="time" name="time" required>
+
+            <button type="submit">Confirm Reservation</button>
+        </form>
+
+        <a href="/dashboard">Cancel and go back</a>
+    </div>
+
+</body>
+</html>
